@@ -5,14 +5,15 @@ using Business.Abstract;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
+using Entities.DTO;
 
 namespace Business.Concrete
 {
-    public class ProductManeger : IProductService
+    public class ProductManager : IProductService
     {
         IProductDal _productDal;
 
-        public ProductManeger(IProductDal productDal)
+        public ProductManager(IProductDal productDal)
         {
             _productDal = productDal;
         }
@@ -32,6 +33,11 @@ namespace Business.Concrete
         public List<Product> GetByUnitPrice(decimal min, decimal max)
         {
             return _productDal.GetAll(p => p.Unitprice >= min && p.Unitprice <= max);
+        }
+
+        public List<ProductDetailDto> GetProductDetails()
+        {
+            return _productDal.GetProductDetails();
         }
     }
 }
